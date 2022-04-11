@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import argparse
 import asyncio
 import json
@@ -29,7 +29,8 @@ def hello_world():
     return render_template("index.html")
 
 @app.route('/offer', methods = ['POST'])
-async def offer(request):
+async def offer():
+
     f_stop = threading.Event()
     # start calling f now and every 60 sec thereafter
     f(f_stop)
