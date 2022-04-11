@@ -28,7 +28,7 @@ relay = MediaRelay()
 def hello_world():
     return render_template("index.html")
 
-@app.route('/offer')
+@app.route('/offer', methods = ['POST'])
 async def offer(request):
     f_stop = threading.Event()
     # start calling f now and every 60 sec thereafter
