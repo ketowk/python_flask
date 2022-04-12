@@ -1,5 +1,5 @@
 from csv import unregister_dialect
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 import argparse
 import asyncio
 import json
@@ -97,14 +97,14 @@ async def offer():
     answer = await pc.createAnswer()
     await pc.setLocalDescription(answer)
 
-    #return web.Response(
-    #    content_type="application/json",
-    #    text=json.dumps(
-    #        {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
-    #    ),
-    #)
+    return Response(
+        content_type="application/json",
+        text=json.dumps(
+            {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
+        ),
+    )
 
-    return "return value"
+    #return "return value"
 
 class VideoTransformTrack(MediaStreamTrack):
     """
