@@ -1,5 +1,5 @@
 from csv import unregister_dialect
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, jsonify
 import argparse
 import asyncio
 import json
@@ -97,7 +97,7 @@ async def offer():
     answer = await pc.createAnswer()
     await pc.setLocalDescription(answer)
 
-    return Response(
+    return jsonify(
         content_type="application/json",
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
