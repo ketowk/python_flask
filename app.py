@@ -69,6 +69,7 @@ async def offer():
     @pc.on("track")
     def on_track(track):
         log_info("Track %s received", track.kind)
+        print("track recieveddd")
 
         if track.kind == "audio":
             #pc.addTrack(player.audio)
@@ -94,12 +95,14 @@ async def offer():
     answer = await pc.createAnswer()
     await pc.setLocalDescription(answer)
 
-    return web.Response(
-        content_type="application/json",
-        text=json.dumps(
-            {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
-        ),
-    )
+    #return web.Response(
+    #    content_type="application/json",
+    #    text=json.dumps(
+    #        {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
+    #    ),
+    #)
+
+    return "return value"
 
 class VideoTransformTrack(MediaStreamTrack):
     """
