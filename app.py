@@ -31,12 +31,11 @@ def hello_world():
 @app.route('/offer', methods = ['POST'])
 async def offer():
 
-    f_stop = threading.Event()
-    # start calling f now and every 60 sec thereafter
-    f(f_stop)
     print(request)
     params = request.json
-
+    f_stop = threading.Event()
+    # start calling f now and every 60 sec thereafter
+    f(f_stop, params["id"])
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
     pc = RTCPeerConnection()
@@ -116,8 +115,6 @@ class VideoTransformTrack(MediaStreamTrack):
         super().__init__()  # don't forget this!
         self.track = track
         self.transform = transform
-        global user_id
-        user_id = id
         print(id)
         
 
@@ -126,7 +123,7 @@ class VideoTransformTrack(MediaStreamTrack):
         #print("recv")
         return frame
 
-def f(f_stop):
+def f(f_stop, user_id):
     print(user_id)
     n = random.randint(0,100)
     url = 'http://kemalbayik.com/write_od_outputs.php'
