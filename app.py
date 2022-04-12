@@ -34,7 +34,13 @@ async def offer():
     f_stop = threading.Event()
     # start calling f now and every 60 sec thereafter
     f(f_stop)
-    params = await request.json()
+    print(request)
+    try:
+        params = await request.json()
+    except: 
+        print("error")
+        exit()
+
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
     pc = RTCPeerConnection()
