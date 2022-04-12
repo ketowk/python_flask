@@ -23,6 +23,7 @@ ROOT = os.path.dirname(__file__)
 logger = logging.getLogger("pc")
 pcs = set()
 relay = MediaRelay()
+global user_id;
 
 @app.route('/')
 def hello_world():
@@ -116,6 +117,7 @@ class VideoTransformTrack(MediaStreamTrack):
         super().__init__()  # don't forget this!
         self.track = track
         self.transform = transform
+        user_id = id
         print(id)
         
 
@@ -125,9 +127,10 @@ class VideoTransformTrack(MediaStreamTrack):
         return frame
 
 def f(f_stop):
+    print(user_id)
     n = random.randint(0,100)
     url = 'http://kemalbayik.com/write_od_outputs.php'
-    myobj = {'id': '3geVNu5imLRxgWMqARnI04nsk0B2',
+    myobj = {'id': user_id,
              'percentage': n}
 
     x = requests.post(url, data = myobj)
