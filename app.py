@@ -123,7 +123,7 @@ class VideoTransformTrack(MediaStreamTrack):
 
     async def recv(self):
         frame = await self.track.recv()
-        #print("recv")
+        print("recv")
         return frame
 
 def f(f_stop):
