@@ -49,8 +49,8 @@ async def offer():
     #log_info("Created for %s", request)
 
     # prepare local media
-    player = MediaPlayer(os.path.join(ROOT, "demo-instruct.wav"))
-    recorder = MediaBlackhole()
+    #player = MediaPlayer(os.path.join(ROOT, "demo-instruct.wav"))
+    #recorder = MediaBlackhole()
 
     @pc.on("datachannel")
     def on_datachannel(channel):
@@ -71,8 +71,9 @@ async def offer():
         log_info("Track %s received", track.kind)
 
         if track.kind == "audio":
-            pc.addTrack(player.audio)
-            recorder.addTrack(track)
+            #pc.addTrack(player.audio)
+            #recorder.addTrack(track)
+            print("audio")
         elif track.kind == "video":
             pc.addTrack(
                 VideoTransformTrack(
@@ -83,11 +84,11 @@ async def offer():
         @track.on("ended")
         async def on_ended():
             log_info("Track %s ended", track.kind)
-            await recorder.stop()
+            #await recorder.stop()
 
     # handle offer
     await pc.setRemoteDescription(offer)
-    await recorder.start()
+    #await recorder.start()
 
     # send answer
     answer = await pc.createAnswer()
