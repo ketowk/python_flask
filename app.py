@@ -23,7 +23,6 @@ ROOT = os.path.dirname(__file__)
 logger = logging.getLogger("pc")
 pcs = set()
 relay = MediaRelay()
-global user_id;
 
 @app.route('/')
 def hello_world():
@@ -117,6 +116,7 @@ class VideoTransformTrack(MediaStreamTrack):
         super().__init__()  # don't forget this!
         self.track = track
         self.transform = transform
+        global user_id
         user_id = id
         print(id)
         
