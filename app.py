@@ -1,3 +1,4 @@
+from csv import unregister_dialect
 from flask import Flask, render_template, request
 import argparse
 import asyncio
@@ -33,9 +34,11 @@ async def offer():
 
     print(request)
     params = request.json
+    global user_id
+    user_id = params["id"]
     f_stop = threading.Event()
     # start calling f now and every 60 sec thereafter
-    f(f_stop, params["id"])
+    f(f_stop)
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
     pc = RTCPeerConnection()
@@ -123,7 +126,7 @@ class VideoTransformTrack(MediaStreamTrack):
         #print("recv")
         return frame
 
-def f(f_stop, user_id):
+def f(f_stop):
     print(user_id)
     n = random.randint(0,100)
     url = 'http://kemalbayik.com/write_od_outputs.php'
@@ -135,4 +138,4 @@ def f(f_stop, user_id):
     print(x.text)
     if not f_stop.is_set():
         # call f() again in 60 seconds
-        threading.Timer(10, f(f_stop=f_stop,user_id= user_id), [f_stop]).start()
+        threading.Timer(10, f, [f_stop]).start()
