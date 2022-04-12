@@ -135,4 +135,4 @@ def f(f_stop, user_id):
     print(x.text)
     if not f_stop.is_set():
         # call f() again in 60 seconds
-        threading.Timer(10, f(user_id= user_id), [f_stop]).start()
+        threading.Timer(10, f(f_stop=f_stop,user_id= user_id), [f_stop]).start()
