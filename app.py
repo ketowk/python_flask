@@ -35,7 +35,7 @@ async def offer():
     # start calling f now and every 60 sec thereafter
     f(f_stop)
     print(request)
-    params = await request.json
+    params = request.json
 
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
